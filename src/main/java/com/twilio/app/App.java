@@ -43,7 +43,7 @@ public class App {
             Message message = Message
                 .creator(new PhoneNumber(toNumber),
                          new PhoneNumber(fromNumber),
-                        "Uh oh, looks like this caller can't receive SMS messages.")
+                        "There's always money in the banana stand.")
                 .create();
         } catch (ApiException e) {
             if (e.getCode() == 21614) {
