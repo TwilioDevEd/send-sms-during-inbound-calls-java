@@ -18,8 +18,8 @@ This project is built using the [Spark](http://sparkjava.com/) web framework, Ja
 1. First clone this repository and `cd` into it.
 
    ```bash
-   $ git clone https://github.com/TwilioDevEd/send-sms-during-inbound-calls-java.git
-   $ cd send-sms-during-inbound-calls-java
+   git clone https://github.com/TwilioDevEd/send-sms-during-inbound-calls-java.git
+   cd send-sms-during-inbound-calls-java
    ```
 
 1. Create an environment file (`.env`) and define your Twilio Account SID and Auth Token. Both of these can be found in your [Twilio console](https://www.twilio.com/console).
@@ -38,13 +38,13 @@ This project is built using the [Spark](http://sparkjava.com/) web framework, Ja
 1. Start the server.
 
     ```bash
-    $ mvn compile exec:java -Dexec.mainClass=com.twilio.app.App
+    mvn compile exec:java -Dexec.mainClass=com.twilio.app.App
     ```
 
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/).
 
     ```bash
-    $ ngrok http 4567 -host-header="localhost:4567"
+    ngrok http 4567 -host-header="localhost:4567"
     ```
 
 1. Configure Twilio to call your webhooks
