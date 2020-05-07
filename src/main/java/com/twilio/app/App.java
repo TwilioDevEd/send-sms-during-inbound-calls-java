@@ -18,10 +18,8 @@ import com.twilio.type.PhoneNumber;
 public class App {
     public static void main(String[] args) {
         post("/answer", (req, res) -> {
-            Map<String, String> parameters = parseBody(req.body());
-
-            String caller = parameters.get("From");
-            String twilioNumber = parameters.get("To");
+            String caller = req.queryParams("From");
+            String twilioNumber = req.queryParams("To");
             sendSms(caller, twilioNumber);
 
             VoiceResponse twiml = new VoiceResponse.Builder()
@@ -50,24 +48,5 @@ public class App {
                 System.out.println("Uh oh, looks like this caller can't receive SMS messages.");
             }
         }
-    }
-
-    // Body parser help
-    public static Map<String, String> parseBody(String body) throws UnsupportedEncodingException {
-      String[] unparsedParams = body.split("&");
-      Map<String, String> parsedParams = new HashMap<String, String>();
-      for (int i = 0; i < unparsedParams.length; i++) {
-        String[] param = unparsedParams[i].split("=");
-        if (param.length == 2) {
-          parsedParams.put(urlDecode(param[0]), urlDecode(param[1]));
-        } else if (param.length == 1) {
-          parsedParams.put(urlDecode(param[0]), "");
-        }
-      }
-      return parsedParams;
-    }
-
-    public static String urlDecode(String s) throws UnsupportedEncodingException {
-      return URLDecoder.decode(s, "utf-8");
     }
 }
