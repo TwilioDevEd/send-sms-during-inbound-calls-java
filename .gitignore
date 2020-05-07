@@ -24,3 +24,7 @@ hs_err_pid*
 
 .env
 target
+.settings
+.project
+.classpath
+.vscode

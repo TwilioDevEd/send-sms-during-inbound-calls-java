@@ -2,11 +2,6 @@ package com.twilio.app;
 
 import static spark.Spark.*;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.twiml.voice.Say;
@@ -18,12 +13,11 @@ import com.twilio.type.PhoneNumber;
 public class App {
     public static void main(String[] args) {
         post("/answer", (req, res) -> {
-            Map<String, String> parameters = parseBody(req.body());
+            // get the urlencoded form parameters
+            String caller = req.queryParams("From");
+            String twilioNumber = req.queryParams("To");
 
-            String caller = parameters.get("From");
-            String twilioNumber = parameters.get("To");
             sendSms(caller, twilioNumber);
-
             VoiceResponse twiml = new VoiceResponse.Builder()
                 .say(new Say.Builder("Thanks for calling! We just sent you a text with a clue.")
                       .voice(Say.Voice.ALICE)
@@ -40,7 +34,7 @@ public class App {
 
         try {
             Twilio.init(accountSid, authToken);
-            Message message = Message
+            Message
                 .creator(new PhoneNumber(toNumber),
                          new PhoneNumber(fromNumber),
                         "There's always money in the banana stand.")
@@ -50,24 +44,5 @@ public class App {
                 System.out.println("Uh oh, looks like this caller can't receive SMS messages.");
             }
         }
-    }
-
-    // Body parser help
-    public static Map<String, String> parseBody(String body) throws UnsupportedEncodingException {
-      String[] unparsedParams = body.split("&");
-      Map<String, String> parsedParams = new HashMap<String, String>();
-      for (int i = 0; i < unparsedParams.length; i++) {
-        String[] param = unparsedParams[i].split("=");
-        if (param.length == 2) {
-          parsedParams.put(urlDecode(param[0]), urlDecode(param[1]));
-        } else if (param.length == 1) {
-          parsedParams.put(urlDecode(param[0]), "");
-        }
-      }
-      return parsedParams;
-    }
-
-    public static String urlDecode(String s) throws UnsupportedEncodingException {
-      return URLDecoder.decode(s, "utf-8");
     }
 }

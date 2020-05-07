@@ -4,6 +4,8 @@
 
 # Send an SMS during a phone call. Powered by Twilio and Java/Spark
 
+![](https://github.com/TwilioDevEd/send-sms-during-inbound-calls-java/workflows/Java/badge.svg)
+
 > We are currently in the process of updating this sample template. If you are encountering any issues with the sample, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues) and we'll try to help you.
 
 Learn how to send an SMS to someone who's called your Twilio phone number while they're on the call.
@@ -27,8 +29,7 @@ This project is built using the [Spark](http://sparkjava.com/) web framework, Ja
 1. Create an environment file (`.env`) and define your Twilio Account SID and Auth Token. Both of these can be found in your [Twilio console](https://www.twilio.com/console).
 
    ```bash
-   export ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   export AUTH_TOKEN=your_auth_token
+   cp .env.example .env
    ```
 
 1. Load the created file into your environment.
@@ -63,5 +64,6 @@ This project is built using the [Spark](http://sparkjava.com/) web framework, Ja
 ## Meta
 
 * No warranty expressed or implied. Software is as is. Diggity.
+* The CodeExchange repository can be found [here](https://github.com/twilio-labs/code-exchange/).
 * [MIT License](http://www.opensource.org/licenses/mit-license.html)
 * Lovingly crafted by Twilio Developer Education.
