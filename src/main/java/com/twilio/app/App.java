@@ -12,6 +12,7 @@ import com.twilio.type.PhoneNumber;
 
 public class App {
     public static void main(String[] args) {
+        port(8080);
         post("/answer", (req, res) -> {
             // get the urlencoded form parameters
             String caller = req.queryParams("From");
