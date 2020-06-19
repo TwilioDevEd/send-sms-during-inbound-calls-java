@@ -1,0 +1,11 @@
+version: "3.6"
+services:
+  app:
+    stdin_open: true
+    tty: true
+    environment:
+      - ACCOUNT_SID=ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+      - AUTH_TOKEN=your_auth_token
+    build: .
+    ports: 
+      - "8080:8080"

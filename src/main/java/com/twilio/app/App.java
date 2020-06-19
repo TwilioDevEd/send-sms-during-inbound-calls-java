@@ -2,11 +2,6 @@ package com.twilio.app;
 
 import static spark.Spark.*;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.twiml.voice.Say;
@@ -17,11 +12,13 @@ import com.twilio.type.PhoneNumber;
 
 public class App {
     public static void main(String[] args) {
+        port(8080);
         post("/answer", (req, res) -> {
+            // get the urlencoded form parameters
             String caller = req.queryParams("From");
             String twilioNumber = req.queryParams("To");
-            sendSms(caller, twilioNumber);
 
+            sendSms(caller, twilioNumber);
             VoiceResponse twiml = new VoiceResponse.Builder()
                 .say(new Say.Builder("Thanks for calling! We just sent you a text with a clue.")
                       .voice(Say.Voice.ALICE)
@@ -38,7 +35,7 @@ public class App {
 
         try {
             Twilio.init(accountSid, authToken);
-            Message message = Message
+            Message
                 .creator(new PhoneNumber(toNumber),
                          new PhoneNumber(fromNumber),
                         "There's always money in the banana stand.")
